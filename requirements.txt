@@ -8,3 +8,6 @@ dj-database-url
 django-bootstrap4
 user-agents
 pyyaml
+djangorestframework
+django-filter
+

@@ -39,12 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sns',
-    # 'djeeterprofile',
-    # 'djeet',
-    # 'status',
     'sns.status',
     'sns.users',
     'sns.profiles',
+    'sns.api',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
