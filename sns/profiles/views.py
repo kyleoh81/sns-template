@@ -103,7 +103,7 @@ class FollowsView(TemplateView):
 
     def get(self, request, username):
         user = get_object_or_404(User, username=username)
-        statuserprofiles = user.statuserprofile.follows.select_related("user").all()
+        profiles = user.profile.follows.select_related("user").all()
         return self.render_to_response({
             "title": "Follows",
             "profiles": profiles,
@@ -127,15 +127,15 @@ class FollowView(LoginRequiredMixin, TemplateView):
     def get(self, request, username):
         user = get_object_or_404(User, username=username)
         request.user.profile.follows.add(user.profile)
-        return HttpResponseRedirect(reverse("{app_name}:profile", kwargs={"username": username}))
+        return HttpResponseRedirect(reverse(f"{app_name}:profile", kwargs={"username": username}))
 
 
 class StopFollowView(LoginRequiredMixin, TemplateView):
     
     def get(self, request, username):
         user = get_object_or_404(User, username=username)
-        request.user.profile.follows.remove(user.statuserprofile)
-        return HttpResponseRedirect(reverse("{app_name}:profile", kwargs={"username": username}))
+        request.user.profile.follows.remove(user.profile)
+        return HttpResponseRedirect(reverse(f"{app_name}:profile", kwargs={"username": username}))
 
 
 class LikeView(LoginRequiredMixin, TemplateView):

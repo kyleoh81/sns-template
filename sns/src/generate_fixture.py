@@ -22,7 +22,7 @@ class FixtureGenerator:
         l = list(filter(lambda x: not x == n, [i for i in range(skip, m + skip)]))
         follows = random.sample(l, m // 2)
         item = {
-            "model": "djeeterprofile.djeeterprofile",
+            "model": "profiles.profile",
             "pk": n,
             "fields": {
                 "user": n,
@@ -33,7 +33,7 @@ class FixtureGenerator:
 
     def g_djeet_object(self, n, u, body):
         item = {
-            "model": "djeet.djeet",
+            "model": "status.status",
             "pk": n,
             "fields": {
                 "user": u,
@@ -59,5 +59,5 @@ def generate_fixture_file(path):
 
 if __name__ == "__main__":
     
-    generate_fixture_file("djitter/fixtures/enliven.json")
+    generate_fixture_file("sns/fixtures/enliven.json")
 

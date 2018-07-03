@@ -10,3 +10,4 @@ __pycache__
 memo.md
 db.sqlite3
 initial_data.yaml
+__init__.pyc
