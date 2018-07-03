@@ -3,10 +3,10 @@
 {% block main %}
 <div class="row">
   <div class="col-12">
-    <h3>{{ title }}</h3>
+    <h3>Feed</h3>
 
-    {% for djeet in djeets %}
-      {% include "djeet/_djeet.html" %}
+    {% for status in statuses %}
+      {% include "status/_status.html" %}
     {% endfor %}
   </div>
 </div>

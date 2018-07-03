@@ -16,8 +16,8 @@ urlpatterns = [
     path("<str:username>/following/", FollowersView.as_view(), name="following"),
     path("<str:username>/follow/", FollowView.as_view(), name="follow"),
     path("<str:username>/stopfollow/", StopFollowView.as_view(), name="stopfollow"),
-    path("like/<str:djeet_id>/", LikeView.as_view(), name="like"),
-    path("stoplike/<str:djeet_id>/", StopLikeView.as_view(), name="stoplike"),
+    path("like/<str:status_id>/", LikeView.as_view(), name="like"),
+    path("stoplike/<str:status_id>/", StopLikeView.as_view(), name="stoplike"),
     path("<str:username>/likes/", LikesView.as_view(), name="likes"),
     path("<str:username>/", ProfileView.as_view(), name="profile"),
 ]

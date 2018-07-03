@@ -9,12 +9,12 @@
   <!-- Feed -->
   <div class="timeline">
 
-    {% if user.djeets.all %}
-      {% for djeet in user.djeets.all %}
-        {% include "djeet/_djeet.html" %}
+    {% if user.statuses.all %}
+      {% for status in user.statuses.all %}
+        {% include "status/_status.html" %}
       {% endfor %}
     {% else %}
-      <p>No djeets yet!</p>
+      <p>No statuses yet!</p>
     {% endif %}
   </div>
 

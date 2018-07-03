@@ -27,8 +27,8 @@
         <ul class="profile__links">
           <li class="profile__link">
             <a class="profile__link-inner">
-              <p class="profile__link-title">Djeets</p>
-              <p class="profile__link-number">{{ user.djeets.all.count }}</p> 
+              <p class="profile__link-title">Statuses</p>
+              <p class="profile__link-number">{{ user.statuses.all.count }}</p> 
             </a>
           </li>
           <li class="profile__link">
@@ -75,7 +75,7 @@
           {% endfor %}
 
           <input type="hidden" value="{{ request.path }}" name="redirect">
-          <input type="submit" value="Post djeet" class="btn btn-primary">
+          <input type="submit" value="Post status" class="btn btn-primary">
         </form>
  
       </div>

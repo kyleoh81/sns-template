@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'sns',
     # 'djeeterprofile',
-    'djeet',
+    # 'djeet',
+    'status',
     'users',
     'sns.profiles',
 ]

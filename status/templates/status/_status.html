@@ -1,0 +1,26 @@
+{% load static %}
+
+<div class="card status" style="margin-bottom: 20px;">
+  <div class="card-body">
+    <div class="status__user">
+      <figure class="status__usericon">
+        <img class="status__img" src="{% static "profiles/img/icon.png" %}">
+      </figure>
+      <div class="status__username">
+        <a class="text-black" href="{% url "profiles:profile" username=status.user.username %}"><p class="card-text mb-0"><b>{{ status.user.nickname }}</b></p></a>
+        <p class="card-text text-muted">@{{ status.user.username }}</p>
+      </div>
+    </div>
+    <p class="card-text">{{ status.body }}</p>
+    <p class="card-text"><small class="text-muted">{{ status.created_at }}</small></p>
+    <div class="status__action">
+      {% if not request.user.profile in status.liked_by.all %}
+        <a class="btn btn-success btn-like" href="{% url "profiles:like" status_id=status.id %}">Like</a>
+      {% else %}
+        <a class="btn btn-danger btn-like" href="{% url "profiles:stoplike" status_id=status.id %}">Stop Like</a>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+

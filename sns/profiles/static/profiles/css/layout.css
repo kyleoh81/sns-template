@@ -66,18 +66,18 @@ body {
 .timeline {
   width: 600px; }
 
-.djeet__user {
+.status__user {
   display: flex;
   margin-bottom: 5px;
   align-items: center; }
-  .djeet__usericon {
+  .status__usericon {
     width: 40px;
     height: auto;
     margin: 0;
     margin-right: 10px; }
-.djeet__img {
+.status__img {
   width: 100%; }
-.djeet:hover {
+.status:hover {
   background-color: #eeeeee; }
 
 .topbar {

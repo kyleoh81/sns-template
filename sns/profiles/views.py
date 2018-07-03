@@ -12,9 +12,9 @@ from django.contrib.auth.views import LogoutView
 from .forms import SignupForm, SigninForm
 from .apps import app_name
 
-from djeet.forms import DjeetForm
+from status.forms import StatusForm
 from users.models import User
-from djeet.models import Djeet
+from status.models import Status
 
 
 def app_path(file_name):
@@ -34,18 +34,18 @@ class ProfileView(LoginRequiredMixin, TemplateView):
     def get(self, request, username):
         context = {
             "user": get_object_or_404(User, username=username),
-            "form": DjeetForm()
+            "form": StatusForm()
         }
         return self.render_to_response(context)
 
     def post(self, request, username):
         user = get_object_or_404(User, username=username)
-        form = DjeetForm(data=request.POST)
+        form = StatusForm(data=request.POST)
 
         if form.is_valid():
-            djeet = form.save(commit=False)
-            djeet.user = user
-            djeet.save()
+            status = form.save(commit=False)
+            status.user = user
+            status.save()
 
         return self.render_to_response({ "form": form, "user": user, })
 
@@ -102,8 +102,8 @@ class FollowsView(TemplateView):
     template_name = app_path("users.html")
 
     def get(self, request, username):
-        user = User.objects.get(username=username)
-        djeeterprofiles = user.djeeterprofile.follows.select_related("user").all()
+        user = get_object_or_404(User, username=username)
+        statuserprofiles = user.statuserprofile.follows.select_related("user").all()
         return self.render_to_response({
             "title": "Follows",
             "profiles": profiles,
@@ -114,7 +114,7 @@ class FollowersView(TemplateView):
     template_name = app_path("users.html")
 
     def get(self, request, username):
-        user = User.objects.get(username=username)
+        user = get_object_or_404(User, username=username)
         profiles = user.profile.followed_by.select_related("user").all()
         return self.render_to_response({
             "title": "Followers",
@@ -134,35 +134,35 @@ class StopFollowView(LoginRequiredMixin, TemplateView):
     
     def get(self, request, username):
         user = get_object_or_404(User, username=username)
-        request.user.profile.follows.remove(user.djeeterprofile)
+        request.user.profile.follows.remove(user.statuserprofile)
         return HttpResponseRedirect(reverse("{app_name}:profile", kwargs={"username": username}))
 
 
 class LikeView(LoginRequiredMixin, TemplateView):
     
-    def get(self, request, djeet_id):
-        djeet = get_object_or_404(Djeet, id=djeet_id)
-        request.user.profile.likes.add(djeet)
+    def get(self, request, status_id):
+        status = get_object_or_404(Status, id=status_id)
+        request.user.profile.likes.add(status)
         return redirect(request.META["HTTP_REFERER"])
 
 
 class StopLikeView(LoginRequiredMixin, TemplateView):
     
-    def get(self, request, djeet_id):
-        djeet = get_object_or_404(Djeet, id=djeet_id)
-        request.user.profile.likes.remove(djeet)
+    def get(self, request, status_id):
+        status = get_object_or_404(Status, id=status_id)
+        request.user.profile.likes.remove(status)
         return redirect(request.META["HTTP_REFERER"])
 
 
 class LikesView(TemplateView):
-    template_name = "djeet/djeets.html"
+    template_name = "status/statuss.html"
 
     def get(self, request, username):
         user = get_object_or_404(User, username=username)
-        djeets = user.profile.likes.select_related("user").all()
+        statuss = user.profile.likes.select_related("user").all()
         return self.render_to_response({
             "title": "Likes",
-            "djeets": djeets,
+            "statuss": statuss,
         })
 
 
