@@ -12,9 +12,9 @@ from django.contrib.auth.views import LogoutView
 from .forms import SignupForm, SigninForm
 from .apps import app_name
 
-from status.forms import StatusForm
-from users.models import User
-from status.models import Status
+from sns.status.forms import StatusForm
+from sns.users.models import User
+from sns.status.models import Status
 
 
 def app_path(file_name):
@@ -155,14 +155,14 @@ class StopLikeView(LoginRequiredMixin, TemplateView):
 
 
 class LikesView(TemplateView):
-    template_name = "status/statuss.html"
+    template_name = "status/statuses.html"
 
     def get(self, request, username):
         user = get_object_or_404(User, username=username)
-        statuss = user.profile.likes.select_related("user").all()
+        statuses = user.profile.likes.select_related("user").all()
         return self.render_to_response({
             "title": "Likes",
-            "statuss": statuss,
+            "statuses": statuses,
         })
 
 

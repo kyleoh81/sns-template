@@ -1,6 +1,7 @@
 from django.db import models
-from users.models import User
-from status.models import Status
+
+from sns.users.models import User
+from sns.status.models import Status
 
 
 class Profile(models.Model):

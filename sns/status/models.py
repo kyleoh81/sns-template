@@ -1,5 +1,6 @@
 from django.db import models
-from users.models import User
+
+from sns.users.models import User
 
 class Status(models.Model):
     user = models.ForeignKey(User, related_name='statuses', on_delete=models.DO_NOTHING)

@@ -41,8 +41,9 @@ INSTALLED_APPS = [
     'sns',
     # 'djeeterprofile',
     # 'djeet',
-    'status',
-    'users',
+    # 'status',
+    'sns.status',
+    'sns.users',
     'sns.profiles',
 ]
 

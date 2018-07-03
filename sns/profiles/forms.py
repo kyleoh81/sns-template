@@ -1,9 +1,11 @@
 from django.contrib.auth.forms import (
     AuthenticationForm, UserCreationForm,
 )
-from users.models import User
 from django import forms
 from django.utils.html import strip_tags
+
+from sns.users.models import User
+
 
 class SignupForm(UserCreationForm):
     email = forms.EmailField(
