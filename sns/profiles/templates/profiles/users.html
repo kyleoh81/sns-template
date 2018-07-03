@@ -1,0 +1,12 @@
+{% extends 'sns/base.html' %}
+
+{% block main %}
+<div>
+  <h1>{{ title }}</h1>
+  <ul class="users">
+    {% for profile in profiles %}
+      <li>{% include "profiles/_profile_simple.html" with user=profile.user %}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+

@@ -38,10 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'djitter',
-    'djeeterprofile',
+    'sns',
+    # 'djeeterprofile',
     'djeet',
     'users',
+    'sns.profiles',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +55,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'djitter.urls'
+ROOT_URLCONF = 'sns.urls'
 
 TEMPLATES = [
     {
@@ -72,7 +73,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'djitter.wsgi.application'
+WSGI_APPLICATION = 'sns.wsgi.application'
 
 
 # Database

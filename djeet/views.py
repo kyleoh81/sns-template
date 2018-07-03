@@ -8,7 +8,7 @@ class FeedView(TemplateView):
     template_name = "djeet/djeets.html"
 
     def get(self, request):
-        userids = [item.id for item in request.user.djeeterprofile.follows.all()]
+        userids = [item.id for item in request.user.profile.follows.all()]
         userids.append(request.user.id)
         djeets = list(Djeet.objects.filter(user_id__in=userids)[:25])
         return self.render_to_response({

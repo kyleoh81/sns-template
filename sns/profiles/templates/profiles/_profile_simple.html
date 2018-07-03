@@ -3,7 +3,7 @@
   <div class="profile">
     <div class="card profile__inner" style="">
       <figure class="profile__icon">
-        <img class="card-img-top profile__img" src="{% static "djeeterprofile/img/icon.png" %}">
+        <img class="card-img-top profile__img" src="{% static "profiles/img/icon.png" %}">
       </figure>
       <div class="card-body">
         <div class="profile__user">
@@ -15,10 +15,10 @@
         </div>
         <div class="profile__follow">
           {% ifnotequal request.user user %}
-            {% if request.user.djeeterprofile in user.djeeterprofile.followed_by.all %}
-              <a href="{% url "profile:stopfollow" user.username %}" class="btn btn-danger">Unfollow</a>
+            {% if request.user.profile in user.profile.followed_by.all %}
+              <a href="{% url "profiles:stopfollow" user.username %}" class="btn btn-danger">Unfollow</a>
             {% else %}
-              <a href="{% url "profile:follow" user.username %}" class="btn btn-success">Follow</a>
+              <a href="{% url "profiles:follow" user.username %}" class="btn btn-success">Follow</a>
             {% endif %}
           {% endifnotequal %}
         </div>

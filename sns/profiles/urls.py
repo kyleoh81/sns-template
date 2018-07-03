@@ -6,9 +6,8 @@ from .views import (
     ProfileView, FrontPageView, SignoutView, FollowsView, FollowersView,
     FollowView, StopFollowView, LikeView, StopLikeView, LikesView,
 )
+from .apps import app_name
 
-
-app_name = "djeeterprofile"
 
 urlpatterns = [
     path("", FrontPageView.as_view(), name="frontpage"),
@@ -23,5 +22,5 @@ urlpatterns = [
     path("<str:username>/", ProfileView.as_view(), name="profile"),
 ]
 
-handler404 = 'djeeterprofile.views.page_not_found'
+handler404 = 'profiles.views.page_not_found'
 
