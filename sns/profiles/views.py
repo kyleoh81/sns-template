@@ -163,6 +163,7 @@ class LikesView(TemplateView):
         return self.render_to_response({
             "title": "Likes",
             "statuses": statuses,
+            "url_timeline": f"/api/profiles/{user.pk}/likes/",
         })
 
 

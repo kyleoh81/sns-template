@@ -21,13 +21,37 @@ class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
-    @action(methods=["get"], detail=True)
+    @action(detail=True)
     def likes(self, request, pk=None):
         """Return a list of statuses liked by given user."""
         profile = self.get_object()
-        likes_qs = profile.likes.all()
-        likes = StatusSerializer(likes_qs, many=True).data
-        return Response(likes)
+        likes = profile.likes.all()
+        result = StatusSerializer(likes, many=True).data
+        return Response(result)
+
+    @action(detail=True)
+    def statuses(self, request, pk=None):
+        """Return statuses user posted."""
+        profile = self.get_object()
+        statuses = profile.user.statuses.order_by("-created_at")
+        result = StatusSerializer(statuses, many=True).data
+        return Response(result)
+
+
+class FeedViewSet(viewsets.ModelViewSet):
+    queryset = Status.objects.all()
+    serializer_class = StatusSerializer
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated,)
+
+    def list(self, request):
+        """Return feed."""
+        userids = [item.id for item in request.user.profile.follows.all()]
+        userids.append(request.user.id)
+        statuses = Status.objects.filter(user_id__in=userids).order_by("-created_at")[:25]
+        result = self.get_serializer_class()(statuses, many=True).data
+        return Response(result)
+               
 
 
 class StatusViewSet(viewsets.ModelViewSet):

@@ -1,14 +1,20 @@
 {% extends 'sns/base.html' %}
+{% load static %}
 
 {% block main %}
 <div class="row">
   <div class="col-12">
     <h3>{{ title }}</h3>
-
-    {% for status in statuses %}
-      {% include "status/_status.html" %}
-    {% endfor %}
+    <div id="v-timeline">
+      <status-card v-for="status in statuses" :key="status.pk" :status="status"></status-card>
+    </div>
   </div>
 </div>
+  <script>let url = "{{ url_timeline }}"</script>
+<script src="{% static 'profiles/js/profile.js' %}"></script>
+<script type="text/x-template" id="status-card">
+  {% include "status/_status.html" %}
+</script>
+
 {% endblock %}
 

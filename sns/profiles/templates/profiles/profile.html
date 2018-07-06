@@ -7,16 +7,14 @@
   {% include "profiles/_profile.html" %}
 
   <!-- Feed -->
-  <div class="timeline">
-
-    {% if user.statuses.all %}
-      {% for status in user.statuses.all %}
-        {% include "status/_status.html" %}
-      {% endfor %}
-    {% else %}
-      <p>No statuses yet!</p>
-    {% endif %}
+  <div class="timeline" id="v-timeline">
+    <status-card v-for="status in statuses" :key="status.pk" :status="status"></status-card>
   </div>
-
 </div>
+  <script>let url = "/api/profiles/" + {{ user.pk }} + "/statuses/"</script>
+<script src="{% static 'profiles/js/profile.js' %}"></script>
+<script type="text/x-template" id="status-card">
+  {% include "status/_status.html" %}
+</script>
+
 {% endblock %}
