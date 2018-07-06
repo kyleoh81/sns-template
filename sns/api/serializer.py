@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
     """Provide serializer for user."""
     class Meta:
         model = User
-        fields = ("username", "nickname")
+        fields = ("pk", "username", "nickname")
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -19,7 +19,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ("user", "follows", "likes", )
+        fields = ("pk", "user", "follows", "likes", )
 
 
 class StatusSerializer(serializers.ModelSerializer):
@@ -28,5 +28,5 @@ class StatusSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Status
-        fields = ("user", "body", "created_at")
+        fields = ("pk", "user", "body", "created_at")
 

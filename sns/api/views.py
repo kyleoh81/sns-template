@@ -41,20 +41,42 @@ class LikeViewSet(viewsets.ModelViewSet):
     authentication_classes = (SessionAuthentication, BasicAuthentication)
     permission_classes = (IsAuthenticated,)
 
-    @action(methods=["put"], detail=True)
-    def like(self, request, pk=None):
-        """Register a status with like."""
+    def manage_relation(self, request, op):
+        """Resiter/Remove status with likes."""
         status = self.get_object()
-        request.user.profile.likes.add(status)
-        status_data = StatusSerializer(status).data
-        return Response(status_data)
+        getattr(request.user.profile.likes, op)(status)
+        serializer = self.get_serializer_class()
+        result = serializer(status).data
+        return Response(result)
+ 
+    def update(self, request, pk=None):
+        """Resister status with likes."""
+        return self.manage_relation(request, "add")
 
-    @action(methods=["delete"], detail=True)
-    def stop_like(self, request, pk=None):
-        """Register a status with like."""
-        status = self.get_object()
-        request.user.profile.likes.remove(status)
-        status_data = StatusSerializer(status).data
-        return Response(status_data)
+    def delete(self, request, pk=None):
+        """Remove status from likes."""
+        return self.manage_relation(request, "remove")
 
-   
+
+class FollowViewSet(viewsets.ModelViewSet):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated,)
+
+    def manage_relation(self, request, op):
+        """Follow/Unfollow user."""
+        profile = self.get_object()
+        getattr(request.user.profile.follows, op)(profile)
+        serializer = self.get_serializer_class()
+        result = serializer(profile).data
+        return Response(result)
+ 
+    def update(self, request, pk=None):
+        """Follow user."""
+        return self.manage_relation(request, "add")
+
+    def delete(self, request, pk=None):
+        """Unfollow user."""
+        return self.manage_relation(request, "remove")
+
