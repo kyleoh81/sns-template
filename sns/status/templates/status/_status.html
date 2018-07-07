@@ -11,7 +11,7 @@
       </div>
     </div>
     <p class="card-text">[[ status.body ]]</p>
-    <p class="card-text"><small class="text-muted">[[ status.created_at ]]</small></p>
+    <p class="card-text"><small class="text-muted">[[ new Date(status.created_at).toLocaleString() ]]</small></p>
     <div class="status__action">
       <a v-if="status.is_liked" class="btn btn-danger btn-like text-white" @click="stoplike">Stop Like</a>
       <a v-else class="btn btn-success btn-like text-white" @click="like">Like</a>
