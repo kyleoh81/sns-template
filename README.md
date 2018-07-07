@@ -1,6 +1,7 @@
-# Djitter
+# SNS template
 
-SNS template based on Djitter(https://github.com/tat3/djitter)
+![sns](https://github.com/tat3/sns-template/image.jpg)
+SNS template written in Python
 
 ## Usage
 
