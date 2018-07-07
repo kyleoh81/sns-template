@@ -109,6 +109,8 @@ class FollowViewSet(viewsets.ModelViewSet):
     def manage_relation(self, request, op):
         """Follow/Unfollow user."""
         profile = self.get_object()
+        if profile.pk == request.user.profile.pk:
+            return Response()
         getattr(request.user.profile.follows, op)(profile)
         serializer = self.get_serializer_class()
         result = serializer(profile).data

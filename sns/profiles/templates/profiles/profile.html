@@ -12,6 +12,7 @@
   </div>
 </div>
   <script>let url = "/api/profiles/" + {{ user.pk }} + "/statuses/"</script>
+<script src="{% static 'profiles/js/timeline.js' %}"></script>
 <script src="{% static 'profiles/js/profile.js' %}"></script>
 <script type="text/x-template" id="status-card">
   {% include "status/_status.html" %}

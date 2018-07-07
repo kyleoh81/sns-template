@@ -1,4 +1,5 @@
 $main-blue: #1DA1F2;
+$hover-gray: #eeeeee;
 
 html {
   min-height: 100%;
@@ -20,6 +21,10 @@ body {
   max-width: 250px;
   min-width: 250px;
   margin: 0 20px 20px 0;
+
+  &__inner:hover {
+    background-color: $hover-gray;
+  }
 
   &:nth-child(2n) {
     margin: 0 0 20px 0;
@@ -129,7 +134,7 @@ body {
   }
 
   &:hover {
-    background-color: #eeeeee;
+    background-color: $hover-gray;
   }
 }
 

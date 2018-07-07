@@ -8,21 +8,11 @@
       <div class="card-body">
         <div class="profile__user">
           <div class="profile__user-name">
-            <h5 class="card-title">{{ user.nickname }}</h3>
+            <a href="{% url "profiles:profile" username=user.username %}" class="text-black"><h5 class="card-title">{{ user.nickname }}</h3></a>
             <p class="card-subtitle text-muted">@{{ user.username }}</p>
-            <p class="card-text">{{ user.profile }}</p>
+            <p class="card-text">{{ user.aboutme }}</p>
           </div>
         </div>
-        <div class="profile__follow">
-          {% ifnotequal request.user user %}
-            {% if request.user.profile in user.profile.followed_by.all %}
-              <a href="{% url "profiles:stopfollow" user.username %}" class="btn btn-danger">Unfollow</a>
-            {% else %}
-              <a href="{% url "profiles:follow" user.username %}" class="btn btn-success">Follow</a>
-            {% endif %}
-          {% endifnotequal %}
-        </div>
-
       </div>
     </div>
   </div>
