@@ -1,6 +1,7 @@
 # SNS template
 
-![sns](https://github.com/tat3/sns-template/image.jpg)
+![image](https://user-images.githubusercontent.com/23653134/42412252-874dccd6-8243-11e8-84a4-4c5d1b8ff15a.jpg)
+
 SNS template written in Python
 
 ## Usage
