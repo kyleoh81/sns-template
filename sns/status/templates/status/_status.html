@@ -13,8 +13,8 @@
     <p class="card-text">[[ status.body ]]</p>
     <p class="card-text"><small class="text-muted">[[ status.created_at ]]</small></p>
     <div class="status__action">
-      <a v-if="status.is_liked" class="btn btn-danger btn-like" :href="'/like/' + status.pk">Stop Like</a>
-      <a v-else class="btn btn-success btn-like" :href="'/stoplike/' + status.pk">Like</a>
+      <a v-if="status.is_liked" class="btn btn-danger btn-like text-white" @click="stoplike">Stop Like</a>
+      <a v-else class="btn btn-success btn-like text-white" @click="like">Like</a>
     </div>
   </div>
 </div>

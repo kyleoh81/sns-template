@@ -27,6 +27,9 @@ class ProfileViewSet(viewsets.ModelViewSet):
         profile = self.get_object()
         likes = profile.likes.all()
         result = StatusSerializer(likes, many=True).data
+        profile_pk = profile.pk
+        for item, q in zip(result, likes):
+            add_is_liked(profile_pk, q, item)
         return Response(result)
 
     @action(detail=True)
@@ -35,7 +38,15 @@ class ProfileViewSet(viewsets.ModelViewSet):
         profile = self.get_object()
         statuses = profile.user.statuses.order_by("-created_at")
         result = StatusSerializer(statuses, many=True).data
+        profile_pk = profile.pk
+        for item, q in zip(result, statuses):
+            add_is_liked(profile_pk, q, item)
         return Response(result)
+
+
+def add_is_liked(profile_pk, status, result):
+    l = status.liked_by.all().values_list("pk", flat=True)
+    result["is_liked"] = profile_pk in l
 
 
 class FeedViewSet(viewsets.ModelViewSet):
@@ -50,6 +61,9 @@ class FeedViewSet(viewsets.ModelViewSet):
         userids.append(request.user.id)
         statuses = Status.objects.filter(user_id__in=userids).order_by("-created_at")[:25]
         result = self.get_serializer_class()(statuses, many=True).data
+        profile_pk = request.user.profile.pk
+        for item, q in zip(result, statuses):
+            add_is_liked(profile_pk, q, item)
         return Response(result)
                
 
@@ -71,13 +85,17 @@ class LikeViewSet(viewsets.ModelViewSet):
         getattr(request.user.profile.likes, op)(status)
         serializer = self.get_serializer_class()
         result = serializer(status).data
+        if op == "add":
+            result["is_liked"] = True
+        else:
+            result["is_liked"] = False
         return Response(result)
  
     def update(self, request, pk=None):
         """Resister status with likes."""
         return self.manage_relation(request, "add")
 
-    def delete(self, request, pk=None):
+    def destroy(self, request, pk=None):
         """Remove status from likes."""
         return self.manage_relation(request, "remove")
 
@@ -100,7 +118,7 @@ class FollowViewSet(viewsets.ModelViewSet):
         """Follow user."""
         return self.manage_relation(request, "add")
 
-    def delete(self, request, pk=None):
+    def destroy(self, request, pk=None):
         """Unfollow user."""
-        return self.manage_relation(request, "remove")
+        return self.manage_relation(request, "clear")
 
