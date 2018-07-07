@@ -120,5 +120,5 @@ class FollowViewSet(viewsets.ModelViewSet):
 
     def destroy(self, request, pk=None):
         """Unfollow user."""
-        return self.manage_relation(request, "clear")
+        return self.manage_relation(request, "remove")
 

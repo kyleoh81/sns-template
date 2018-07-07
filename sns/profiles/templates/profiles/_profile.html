@@ -13,12 +13,15 @@
             <p class="card-text">{{ user.aboutme }}</p>
           </div>
         </div>
-        <div class="profile__follow">
+        <div class="profile__follow" id="v-follow">
           {% ifnotequal request.user user %}
             {% if request.user.profile in user.profile.followed_by.all %}
-              <a href="{% url "profiles:stopfollow" user.username %}" class="btn btn-danger">Unfollow</a>
+            <a v-if="toggle" @click="unfollow('{{ user.pk }}')" class="btn btn-danger text-white">Unfollow</a>
+              <a v-else @click="follow('{{ user.pk }}')" class="btn btn-success text-white">Follow</a>
             {% else %}
-              <a href="{% url "profiles:follow" user.username %}" class="btn btn-success">Follow</a>
+              <a v-if="toggle" @click="follow('{{ user.pk }}')" class="btn btn-success text-white">Follow</a>
+              <a v-else @click="unfollow('{{ user.pk }}')" class="btn btn-danger text-white">Unfollow</a>
+ 
             {% endif %}
           {% endifnotequal %}
         </div>
