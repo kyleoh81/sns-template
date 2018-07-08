@@ -1,0 +1,55 @@
+<hr>
+<ul class="profile__links">
+  <li class="profile__link">
+    <a class="profile__link-inner">
+      <p class="profile__link-title">Statuses</p>
+      <p class="profile__link-number">{{ user.statuses.all.count }}</p> 
+    </a>
+  </li>
+  <li class="profile__link">
+    <a class="profile__link-inner" href="{% url "profiles:likes" user.username %}">
+      <p class="profile__link-title">Likes</p>
+      <p class="profile__link-number">{{ user.profile.likes.count }}</p>
+    </a>
+  </li>
+  <li class="profile__link">
+    <a class="profile__link-inner" href="{% url "profiles:follows" user.username %}">
+      <p class="profile__link-title">Follows</p>
+      <p class="profile__link-number">{{ user.profile.follows.count }}</p> 
+    </a>
+  </li>
+  <li class="profile__link">
+    <a class="profile__link-inner" href="{% url "profiles:following" user.username %}">
+      <p class="profile__link-title">Followers</p>
+      <p class="profile__link-number">{{ user.profile.followed_by.count }}</p> 
+    </a>
+  </li>
+</ul>
+<hr>
+{% if form.errors %}
+  {% for field in form %}
+    {% for error in form.errors %}
+      <div class="alert alert-danger">
+        <b>{{ error|escape }}</b>
+      </div>
+    {% endfor %}
+  {% endfor %}
+  {% for error in form.non_field_errors %}
+    <div class="alert alert-danger">
+      <b>{{ error|escape }}</b>
+    </div>
+  {% endfor %}
+{% endif %}
+<form action="{% url "profiles:profile" request.user.username %}" method="post">
+  {% csrf_token %}
+
+  {% for field in form %}
+    <div class="form-group">
+      {{ field }}
+    </div>
+  {% endfor %}
+
+  <input type="hidden" value="{{ request.path }}" name="redirect">
+  <input type="submit" value="Post status" class="btn btn-primary">
+</form>
+

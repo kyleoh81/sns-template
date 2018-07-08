@@ -5,7 +5,6 @@
 <div class="main">
   <!-- Sidebar -->
   {% include "profiles/_profile.html" %}
-
   <!-- Feed -->
   <div class="timeline" id="v-timeline">
     <status-card v-for="status in statuses" :key="status.pk" :status="status"></status-card>

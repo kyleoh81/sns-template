@@ -34,7 +34,8 @@ class ProfileView(LoginRequiredMixin, TemplateView):
     def get(self, request, username):
         context = {
             "user": get_object_or_404(User, username=username),
-            "form": StatusForm()
+            "form": StatusForm(),
+            "footer_required": True,
         }
         return self.render_to_response(context)
 
@@ -107,6 +108,7 @@ class FollowsView(TemplateView):
         return self.render_to_response({
             "title": "Follows",
             "profiles": profiles,
+            "footer_required": False,
         })
 
 

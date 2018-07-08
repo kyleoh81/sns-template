@@ -13,8 +13,9 @@ body {
   width: 350px;
   max-width: 250px;
   min-width: 250px;
-  margin: 0 20px 20px 0; }
-  .profile__inner:hover {
+  height: 100%;
+  margin: 0 20px 0 0; }
+  .profile:hover {
     background-color: #eeeeee; }
   .profile:nth-child(2n) {
     margin: 0 0 20px 0; }
@@ -99,5 +100,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center; }
+  .users .user {
+    margin-bottom: 20px; }
 
 /*# sourceMappingURL=layout.css.map */
