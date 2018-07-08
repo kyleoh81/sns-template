@@ -48,7 +48,8 @@ class ProfileView(LoginRequiredMixin, TemplateView):
             status.user = user
             status.save()
 
-        return self.render_to_response({ "form": form, "user": user, })
+        context = {"form": form, "user": user, "footer_required": True,}
+        return self.render_to_response(context)
 
 
 class FrontPageView(TemplateView):
@@ -109,6 +110,7 @@ class FollowsView(TemplateView):
             "title": "Follows",
             "profiles": profiles,
             "footer_required": False,
+            "user": user,
         })
 
 

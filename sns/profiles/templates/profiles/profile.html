@@ -4,17 +4,24 @@
 {% block main %}
 <div class="main">
   <!-- Sidebar -->
-  {% include "profiles/_profile.html" %}
+  <div id="v-profile-full" class="h-100">
+    <user-profile :user="user"></user-profile>
+  </div>
+
   <!-- Feed -->
   <div class="timeline" id="v-timeline">
     <status-card v-for="status in statuses" :key="status.pk" :status="status"></status-card>
   </div>
 </div>
-  <script>let url = "/api/profiles/" + {{ user.pk }} + "/statuses/"</script>
+<script>url = "/api/profiles/{{ user.pk }}/statuses/"</script>
 <script src="{% static 'profiles/js/timeline.js' %}"></script>
-<script src="{% static 'profiles/js/profile.js' %}"></script>
 <script type="text/x-template" id="status-card">
   {% include "status/_status.html" %}
 </script>
 
+<script>url = "/api/profiles/{{ user.pk }}/"</script>
+<script type="text/x-template" id="user-profile">
+  {% include "profiles/_profile.html" %}
+</script>
+<script src="{% static 'profiles/js/profile.js' %}"></script>
 {% endblock %}

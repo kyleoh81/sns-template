@@ -21,15 +21,34 @@ class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
+    def retrieve(self, request, pk=None):
+        """Return one's profile."""
+        profile = self.get_object()
+        result = ProfileSerializer(profile).data
+        pk = request.user.pk
+        add_is_followed(pk, profile, result)
+        return Response(result)
+
     @action(detail=True)
     def likes(self, request, pk=None):
         """Return a list of statuses liked by given user."""
         profile = self.get_object()
         likes = profile.likes.all()
         result = StatusSerializer(likes, many=True).data
-        profile_pk = profile.pk
+        pk = request.user.pk
         for item, q in zip(result, likes):
-            add_is_liked(profile_pk, q, item)
+            add_is_liked(pk, q, item)
+        return Response(result)
+
+    @action(detail=True)
+    def follows(self, request, pk=None):
+        """Return profiles followed by given user."""
+        profile = self.get_object()
+        follows = profile.follows.all()
+        result = ProfileSerializer(follows, many=True).data
+        pk = request.user.pk
+        for item, q in zip(result, follows):
+            add_is_followed(pk, q, item)
         return Response(result)
 
     @action(detail=True)
@@ -38,15 +57,19 @@ class ProfileViewSet(viewsets.ModelViewSet):
         profile = self.get_object()
         statuses = profile.user.statuses.order_by("-created_at")
         result = StatusSerializer(statuses, many=True).data
-        profile_pk = profile.pk
+        pk = request.user.pk
         for item, q in zip(result, statuses):
-            add_is_liked(profile_pk, q, item)
+            add_is_liked(pk, q, item)
         return Response(result)
 
 
 def add_is_liked(profile_pk, status, result):
     l = status.liked_by.all().values_list("pk", flat=True)
     result["is_liked"] = profile_pk in l
+
+def add_is_followed(profile_pk, status, result):
+    l = status.followed_by.all().values_list("pk", flat=True)
+    result["is_followed"] = profile_pk in l
 
 
 class FeedViewSet(viewsets.ModelViewSet):

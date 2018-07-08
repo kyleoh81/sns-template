@@ -1,5 +1,4 @@
 {% load static %}
-
 <div class="profile card">
   <figure class="profile__icon">
     <img class="card-img-top profile__img" src="{% static "profiles/img/icon.png" %}">
@@ -7,25 +6,17 @@
   <div class="card-body">
     <div class="profile__user">
       <div class="profile__user-name">
-        <a href="{% url "profiles:profile" username=user.username %}" class="text-black"><h5 class="card-title">{{ user.nickname }}</h3></a>
-        <p class="card-subtitle text-muted">@{{ user.username }}</p>
-        <p class="card-text">{{ user.aboutme }}</p>
+        <h5 class="card-title"><a :href="'/' + user.user.username + '/'" class="text-black">[[ user.user.nickname ]]</a></h5>
+        <p class="card-subtitle text-muted">@[[ user.user.username ]]</p>
+        <p class="card-text">[[ user.user.aboutme ]]</p>
       </div>
     </div>
     <div class="profile__follow" id="v-follow">
-      {% ifnotequal request.user user %}
-        {% if request.user.profile in user.profile.followed_by.all %}
-          <a v-if="toggle" @click="unfollow('{{ user.pk }}')" class="btn btn-danger text-white">Unfollow</a>
-          <a v-else @click="follow('{{ user.pk }}')" class="btn btn-success text-white">Follow</a>
-        {% else %}
-          <a v-if="toggle" @click="follow('{{ user.pk }}')" class="btn btn-success text-white">Follow</a>
-          <a v-else @click="unfollow('{{ user.pk }}')" class="btn btn-danger text-white">Unfollow</a>
-        {% endif %}
-      {% endifnotequal %}
+          <a v-if="user.is_followed" @click="unfollow" class="btn btn-danger text-white">Unfollow</a>
+          <a v-else @click="follow" class="btn btn-success text-white">Follow</a>
     </div>
     {% if footer_required %}
       {% include "profiles/_profile_footer.html" %}
     {% endif %}
   </div>
 </div>
-

@@ -17,8 +17,6 @@ body {
   margin: 0 20px 0 0; }
   .profile:hover {
     background-color: #eeeeee; }
-  .profile:nth-child(2n) {
-    margin: 0 0 20px 0; }
   .profile hr {
     margin: 0; }
   .profile__icon {
