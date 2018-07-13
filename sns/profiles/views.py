@@ -110,7 +110,7 @@ class FollowsView(TemplateView):
             "title": "Follows",
             "profiles": profiles,
             "footer_required": False,
-            "user": user,
+            "url_users": f"/api/profiles/{user.pk}/follows/",
         })
 
 
@@ -123,6 +123,8 @@ class FollowersView(TemplateView):
         return self.render_to_response({
             "title": "Followers",
             "profiles": profiles,
+            "user": user,
+            "url_users": f"/api/profiles/{user.pk}/followers/",
         })
 
     
@@ -167,7 +169,7 @@ class LikesView(TemplateView):
         return self.render_to_response({
             "title": "Likes",
             "statuses": statuses,
-            "url_timeline": f"/api/profiles/{user.pk}/likes/",
+            "url_statuses": f"/api/profiles/{user.pk}/likes/",
         })
 
 

@@ -11,7 +11,7 @@
         <p class="card-text">[[ user.user.aboutme ]]</p>
       </div>
     </div>
-    <div class="profile__follow" id="v-follow">
+    <div v-if="! user.is_me" class="profile__follow" id="v-follow">
           <a v-if="user.is_followed" @click="unfollow" class="btn btn-danger text-white">Unfollow</a>
           <a v-else @click="follow" class="btn btn-success text-white">Follow</a>
     </div>

@@ -27,6 +27,8 @@ class ProfileViewSet(viewsets.ModelViewSet):
         result = ProfileSerializer(profile).data
         pk = request.user.pk
         add_is_followed(pk, profile, result)
+        if request.user.pk == profile.pk:
+            result["is_me"] = True
         return Response(result)
 
     @action(detail=True)
@@ -45,6 +47,17 @@ class ProfileViewSet(viewsets.ModelViewSet):
         """Return profiles followed by given user."""
         profile = self.get_object()
         follows = profile.follows.all()
+        result = ProfileSerializer(follows, many=True).data
+        pk = request.user.pk
+        for item, q in zip(result, follows):
+            add_is_followed(pk, q, item)
+        return Response(result)
+
+    @action(detail=True)
+    def followers(self, request, pk=None):
+        """Return profiles followed by given user."""
+        profile = self.get_object()
+        follows = profile.followed_by.all()
         result = ProfileSerializer(follows, many=True).data
         pk = request.user.pk
         for item, q in zip(result, follows):

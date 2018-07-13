@@ -34,33 +34,36 @@ Vue.component("user-profile", {
     },
 })
 
-const users = new Vue({
-    el: "#v-users",
+Vue.component("users", {
+    template: "#users",
+    props: ["url"],
     data: function(){
         return {
             users: []
         }
     },
     created: function(){
-        axios.get(url)
+        axios.get(this.url)
         .then(function(res){
             this.users = res.data
         }.bind(this))
     }
 })
+new Vue({el: "#v-users"})
 
-const profile_full = new Vue({
-    el: "#v-profile-full",
+Vue.component("profile-full", {
+    template: "#profile-full",
+    props: ["url"],
     data: function(){
         return {
-            user: {}
+            user: {},
         }
     },
     created: function(){
-        axios.get(url)
+        axios.get(this.url)
         .then(function(res){
             this.user = res.data
         }.bind(this))
     }
 })
-
+new Vue({el: "#v-profile-full"})

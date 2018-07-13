@@ -3,13 +3,7 @@
 {% block main %}
 <div>
   <h1>{{ title }}</h1>
-  <ul class="users mb-0" id="v-users">
-    <user-profile v-for="user in users" :user="user" :key="user.pk" class="user"></user-profile>
-  </ul>
-  <script>url = "/api/profiles/{{ user.pk }}/follows/"</script>
-  <script src="{% static 'profiles/js/profile.js' %}"></script>
-  <script type="x-template" id="user-profile">
-    {% include "profiles/_profile.html" %}
-  </script>
+  <users id="v-users" url="{{ url_users }}"></users>
+  
 {% endblock %}
 

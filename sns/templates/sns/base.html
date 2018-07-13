@@ -53,5 +53,29 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
- </body>
+    <script type="text/x-template" id="status-card">
+      {% include "status/_status.html" %}
+    </script>
+    <script type="text/x-template" id="timeline">
+      <div class="timeline">
+        <status-card v-for="status in statuses" :key="status.pk" :status="status"></status-card>
+      </div>
+    </script>
+    <script src="{% static 'profiles/js/timeline.js' %}"></script>
+
+    <script type="text/x-template" id="user-profile">
+      {% include "profiles/_profile.html" %}
+    </script>
+    <script type="text/x-template" id="profile-full">
+      <div class="h-100">
+        <user-profile :user="user"></user-profile>
+      </div>
+    </script>
+    <script type="text/x-template" id="users">
+      <ul class="users mb-0">
+        <user-profile v-for="user in users" :user="user" :key="user.pk" class="user"></user-profile>
+      </ul>
+    </script>
+    <script src="{% static 'profiles/js/profile.js' %}"></script>
+  </body>
 </html>

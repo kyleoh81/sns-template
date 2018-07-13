@@ -5,16 +5,9 @@
 <div class="row">
   <div class="col-12">
     <h3>{{ title }}</h3>
-    <div id="v-timeline">
-      <status-card v-for="status in statuses" :key="status.pk" :status="status"></status-card>
-    </div>
+    <timeline url="{{ url_statuses }}" id="v-timeline"></timeline>
   </div>
 </div>
-  <script>let url = "{{ url_timeline }}"</script>
-<script src="{% static 'profiles/js/timeline.js' %}"></script>
-<script type="text/x-template" id="status-card">
-  {% include "status/_status.html" %}
-</script>
 
 {% endblock %}
 

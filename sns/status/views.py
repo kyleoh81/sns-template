@@ -22,6 +22,6 @@ class FeedView(TemplateView, LoginRequiredMixin):
         return self.render_to_response({
             "title": "Feed",
             "statuses": statuses,
-            "url_timeline": "/api/feed/",
+            "url_statuses": "/api/feed/",
         })
 

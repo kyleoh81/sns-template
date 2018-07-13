@@ -8,18 +8,26 @@ from sns.users.models import User
 
 class UserSerializer(serializers.ModelSerializer):
     """Provide serializer for user."""
+
     class Meta:
         model = User
-        fields = ("pk", "username", "nickname")
+        fields = ("pk", "username", "nickname",)
 
+    def get_is_me(self, obj):
+        return False
 
 class ProfileSerializer(serializers.ModelSerializer):
     """Provide serializer for profile."""
     user = UserSerializer()
+    is_me = serializers.SerializerMethodField()
 
     class Meta:
         model = Profile
-        fields = ("pk", "user", "follows", "likes", )
+        fields = ("pk", "user", "follows", "likes", "is_me")
+
+    def get_is_me(self, obj):
+        return False
+
 
 
 class StatusSerializer(serializers.ModelSerializer):
